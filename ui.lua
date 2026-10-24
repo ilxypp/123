@@ -444,6 +444,7 @@ local X,Y=Library:GetTextBounds(InfoStr,Library.Font,14)
 local Tooltip=Library:Create('Frame',{
 BackgroundColor3=Library.TooltipColor,
 BorderColor3=Library.OutlineColor,
+AutomaticSize=Enum.AutomaticSize.X,
 Size=UDim2.fromOffset(X+5,Y+4),
 ZIndex=100,
 Parent=Library.ScreenGui,
