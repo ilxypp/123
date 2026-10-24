@@ -37,7 +37,7 @@ self:ThemeUpdate()
 end
 
 function ThemeManager.ThemeUpdate(self)
-local options={"FontColor","MainColor","AccentColor","BackgroundColor","OutlineColor"}
+local options={"FontColor","MainColor","AccentColor","BackgroundColor","OutlineColor","Black","TextStrokeColor","RiskColor","TooltipColor","NotificationColor"}
 for i,field in next,options do
 if Options and Options[field]then
 self.Library[field]=Options[field].Value
@@ -65,11 +65,23 @@ writefile(self.Folder..'/themes/default.txt',theme)
 end
 
 function ThemeManager.CreateThemeManager(self,groupbox)
+
 groupbox:AddLabel'Background color':AddColorPicker('BackgroundColor',{Default=self.Library.BackgroundColor})
 groupbox:AddLabel'Main color':AddColorPicker('MainColor',{Default=self.Library.MainColor})
 groupbox:AddLabel'Accent color':AddColorPicker('AccentColor',{Default=self.Library.AccentColor})
 groupbox:AddLabel'Outline color':AddColorPicker('OutlineColor',{Default=self.Library.OutlineColor})
 groupbox:AddLabel'Font color':AddColorPicker('FontColor',{Default=self.Library.FontColor})
+
+groupbox:AddDivider()
+
+
+groupbox:AddLabel'Tooltip background':AddColorPicker('TooltipColor',{Default=self.Library.TooltipColor})
+groupbox:AddLabel'Notification background':AddColorPicker('NotificationColor',{Default=self.Library.NotificationColor})
+groupbox:AddLabel'Text stroke color':AddColorPicker('TextStrokeColor',{Default=self.Library.TextStrokeColor})
+groupbox:AddLabel'Outer border color':AddColorPicker('Black',{Default=self.Library.Black})
+groupbox:AddLabel'Risk indicator color':AddColorPicker('RiskColor',{Default=self.Library.RiskColor})
+
+groupbox:AddDivider()
 
 local ThemesArray={}
 for Name,Theme in next,self.BuiltInThemes do
@@ -78,7 +90,6 @@ end
 
 table.sort(ThemesArray,function(a,b)return self.BuiltInThemes[a][1]<self.BuiltInThemes[b][1]end)
 
-groupbox:AddDivider()
 groupbox:AddDropdown('ThemeManager_ThemeList',{Text='Theme list',Values=ThemesArray,Default=1})
 
 groupbox:AddButton('Set as default',function()
@@ -98,6 +109,11 @@ Options.MainColor:OnChanged(UpdateTheme)
 Options.AccentColor:OnChanged(UpdateTheme)
 Options.OutlineColor:OnChanged(UpdateTheme)
 Options.FontColor:OnChanged(UpdateTheme)
+Options.Black:OnChanged(UpdateTheme)
+Options.TextStrokeColor:OnChanged(UpdateTheme)
+Options.RiskColor:OnChanged(UpdateTheme)
+Options.TooltipColor:OnChanged(UpdateTheme)
+Options.NotificationColor:OnChanged(UpdateTheme)
 end
 
 function ThemeManager.SetLibrary(self,lib)self.Library=lib end
@@ -196,7 +212,11 @@ return true
 end
 
 function SaveManager.IgnoreThemeSettings(self)
-self:SetIgnoreIndexes{"BackgroundColor","MainColor","AccentColor","OutlineColor","FontColor","ThemeManager_ThemeList",'ThemeManager_CustomThemeList','ThemeManager_CustomThemeName'}
+self:SetIgnoreIndexes{
+"BackgroundColor","MainColor","AccentColor","OutlineColor","FontColor",
+"Black","TextStrokeColor","RiskColor","TooltipColor","NotificationColor",
+"ThemeManager_ThemeList",'ThemeManager_CustomThemeList','ThemeManager_CustomThemeName'
+}
 end
 
 function SaveManager.BuildFolderTree(self)
@@ -2404,69 +2424,69 @@ Library.Watermark=WatermarkOuter
 Library.WatermarkText=WatermarkLabel
 Library:MakeDraggable(Library.Watermark)
 
-    local KeybindOuter=Library:Create('Frame',{
-        AnchorPoint=Vector2.new(0,0.5);
-        BackgroundColor3=Color3.new(0,0,0);
-        BorderColor3=Color3.new(0,0,0);
-        Position=UDim2.new(0,10,0.8,0); -- 80% down the screen
-        Size=UDim2.new(0,210,0,20); -- Fixed size, math will resize it
-        Visible=false;
-        ZIndex=100;
-        Parent=ScreenGui
-    })
+local KeybindOuter=Library:Create('Frame',{
+AnchorPoint=Vector2.new(0,0.5);
+BackgroundColor3=Color3.new(0,0,0);
+BorderColor3=Color3.new(0,0,0);
+Position=UDim2.new(0,10,0.8,0);
+Size=UDim2.new(0,210,0,20);
+Visible=false;
+ZIndex=100;
+Parent=ScreenGui
+})
 
-    local KeybindInner=Library:Create('Frame',{
-        BackgroundColor3=Library.MainColor;
-        BorderColor3=Library.OutlineColor;
-        BorderMode=Enum.BorderMode.Inset;
-        Size=UDim2.new(1,0,1,0);
-        ZIndex=101;
-        Parent=KeybindOuter
-    })
+local KeybindInner=Library:Create('Frame',{
+BackgroundColor3=Library.MainColor;
+BorderColor3=Library.OutlineColor;
+BorderMode=Enum.BorderMode.Inset;
+Size=UDim2.new(1,0,1,0);
+ZIndex=101;
+Parent=KeybindOuter
+})
 
-    Library:AddToRegistry(KeybindInner,{BackgroundColor3='MainColor',BorderColor3='OutlineColor'},true)
+Library:AddToRegistry(KeybindInner,{BackgroundColor3='MainColor',BorderColor3='OutlineColor'},true)
 
-    local ColorFrame=Library:Create('Frame',{
-        BackgroundColor3=Library.AccentColor;
-        BorderSizePixel=0;
-        Size=UDim2.new(1,0,0,2);
-        ZIndex=102;
-        Parent=KeybindInner
-    })
+local ColorFrame=Library:Create('Frame',{
+BackgroundColor3=Library.AccentColor;
+BorderSizePixel=0;
+Size=UDim2.new(1,0,0,2);
+ZIndex=102;
+Parent=KeybindInner
+})
 
-    Library:AddToRegistry(ColorFrame,{BackgroundColor3='AccentColor'},true)
+Library:AddToRegistry(ColorFrame,{BackgroundColor3='AccentColor'},true)
 
-    local KeybindLabel=Library:CreateLabel({
-        Size=UDim2.new(1,0,0,20);
-        Position=UDim2.fromOffset(5,2);
-        TextXAlignment=Enum.TextXAlignment.Left;
-        Text='Keybinds';
-        ZIndex=104;
-        Parent=KeybindInner
-    })
+Library:CreateLabel{
+Size=UDim2.new(1,0,0,20);
+Position=UDim2.fromOffset(5,2);
+TextXAlignment=Enum.TextXAlignment.Left;
+Text='Keybinds';
+ZIndex=104;
+Parent=KeybindInner
+}
 
-    local KeybindContainer=Library:Create('Frame',{
-        BackgroundTransparency=1;
-        Size=UDim2.new(1,0,1,-20);
-        Position=UDim2.new(0,0,0,20);
-        ZIndex=1;
-        Parent=KeybindInner
-    })
+local KeybindContainer=Library:Create('Frame',{
+BackgroundTransparency=1;
+Size=UDim2.new(1,0,1,-20);
+Position=UDim2.new(0,0,0,20);
+ZIndex=1;
+Parent=KeybindInner
+})
 
-    Library:Create('UIListLayout',{
-        FillDirection=Enum.FillDirection.Vertical;
-        SortOrder=Enum.SortOrder.LayoutOrder;
-        Parent=KeybindContainer
-    })
+Library:Create('UIListLayout',{
+FillDirection=Enum.FillDirection.Vertical;
+SortOrder=Enum.SortOrder.LayoutOrder;
+Parent=KeybindContainer
+})
 
-    Library:Create('UIPadding',{
-        PaddingLeft=UDim.new(0,5);
-        Parent=KeybindContainer
-    })
+Library:Create('UIPadding',{
+PaddingLeft=UDim.new(0,5);
+Parent=KeybindContainer
+})
 
-    Library.KeybindFrame=KeybindOuter
-    Library.KeybindContainer=KeybindContainer
-    Library:MakeDraggable(KeybindOuter)
+Library.KeybindFrame=KeybindOuter
+Library.KeybindContainer=KeybindContainer
+Library:MakeDraggable(KeybindOuter)
 end
 
 function Library.SetWatermarkVisibility(self,Bool)Library.Watermark.Visible=Bool end
