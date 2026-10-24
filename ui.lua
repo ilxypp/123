@@ -12,15 +12,15 @@ local httpService=game:GetService'HttpService'
 local ThemeManager={}do
 ThemeManager.Folder='allusive.usSettings'
 ThemeManager.Library=nil
-    ThemeManager.BuiltInThemes = {
-        ['Nord'] = { 1, httpService:JSONDecode('{"FontColor":"eceff4","MainColor":"3b4252","AccentColor":"88c0d0","BackgroundColor":"2e3440","OutlineColor":"4c566a","Black":"1e222a","TextStrokeColor":"1e222a","RiskColor":"bf616a","TooltipColor":"434c5e","NotificationColor":"434c5e"}') },
-        ['BBot'] = { 2, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1e1e1e","AccentColor":"7e48a3","BackgroundColor":"232323","OutlineColor":"141414","Black":"111111","TextStrokeColor":"111111","RiskColor":"ff3232","TooltipColor":"252525","NotificationColor":"252525"}') },
-        ['Fatality'] = { 3, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1e1842","AccentColor":"c50754","BackgroundColor":"191335","OutlineColor":"3c355d","Black":"0e0a21","TextStrokeColor":"0e0a21","RiskColor":"ff3232","TooltipColor":"251d52","NotificationColor":"251d52"}') },
-        ['Dracula'] = { 4, httpService:JSONDecode('{"FontColor":"f8f8f2","MainColor":"44475a","AccentColor":"bd93f9","BackgroundColor":"282a36","OutlineColor":"6272a4","Black":"191a21","TextStrokeColor":"191a21","RiskColor":"ff5555","TooltipColor":"4d5066","NotificationColor":"4d5066"}') },
-        ['Tokyo Night'] = { 5, httpService:JSONDecode('{"FontColor":"c0caf5","MainColor":"1a1b26","AccentColor":"7aa2f7","BackgroundColor":"16161e","OutlineColor":"32344a","Black":"0d0d12","TextStrokeColor":"0d0d12","RiskColor":"f7768e","TooltipColor":"1f202e","NotificationColor":"1f202e"}') },
-        ['Gruvbox'] = { 6, httpService:JSONDecode('{"FontColor":"ebdbb2","MainColor":"3c3836","AccentColor":"fabd2f","BackgroundColor":"282828","OutlineColor":"504945","Black":"1d2021","TextStrokeColor":"1d2021","RiskColor":"fb4934","TooltipColor":"45403d","NotificationColor":"45403d"}') },
-        ['Catppuccin'] = { 7, httpService:JSONDecode('{"FontColor":"cdd6f4","MainColor":"313244","AccentColor":"cba6f7","BackgroundColor":"1e1e2e","OutlineColor":"45475a","Black":"11111b","TextStrokeColor":"11111b","RiskColor":"f38ba8","TooltipColor":"3a3b50","NotificationColor":"3a3b50"}') },
-    }
+ThemeManager.BuiltInThemes={Nord=
+{1,httpService:JSONDecode'{"FontColor":"eceff4","MainColor":"3b4252","AccentColor":"88c0d0","BackgroundColor":"2e3440","OutlineColor":"4c566a","Black":"1e222a","TextStrokeColor":"1e222a","RiskColor":"bf616a","TooltipColor":"434c5e","NotificationColor":"434c5e"}'},BBot=
+{2,httpService:JSONDecode'{"FontColor":"ffffff","MainColor":"1e1e1e","AccentColor":"7e48a3","BackgroundColor":"232323","OutlineColor":"141414","Black":"111111","TextStrokeColor":"111111","RiskColor":"ff3232","TooltipColor":"252525","NotificationColor":"252525"}'},Fatality=
+{3,httpService:JSONDecode'{"FontColor":"ffffff","MainColor":"1e1842","AccentColor":"c50754","BackgroundColor":"191335","OutlineColor":"3c355d","Black":"0e0a21","TextStrokeColor":"0e0a21","RiskColor":"ff3232","TooltipColor":"251d52","NotificationColor":"251d52"}'},Dracula=
+{4,httpService:JSONDecode'{"FontColor":"f8f8f2","MainColor":"44475a","AccentColor":"bd93f9","BackgroundColor":"282a36","OutlineColor":"6272a4","Black":"191a21","TextStrokeColor":"191a21","RiskColor":"ff5555","TooltipColor":"4d5066","NotificationColor":"4d5066"}'},
+['Tokyo Night']={5,httpService:JSONDecode'{"FontColor":"c0caf5","MainColor":"1a1b26","AccentColor":"7aa2f7","BackgroundColor":"16161e","OutlineColor":"32344a","Black":"0d0d12","TextStrokeColor":"0d0d12","RiskColor":"f7768e","TooltipColor":"1f202e","NotificationColor":"1f202e"}'},Gruvbox=
+{6,httpService:JSONDecode'{"FontColor":"ebdbb2","MainColor":"3c3836","AccentColor":"fabd2f","BackgroundColor":"282828","OutlineColor":"504945","Black":"1d2021","TextStrokeColor":"1d2021","RiskColor":"fb4934","TooltipColor":"45403d","NotificationColor":"45403d"}'},Catppuccin=
+{7,httpService:JSONDecode'{"FontColor":"cdd6f4","MainColor":"313244","AccentColor":"cba6f7","BackgroundColor":"1e1e2e","OutlineColor":"45475a","Black":"11111b","TextStrokeColor":"11111b","RiskColor":"f38ba8","TooltipColor":"3a3b50","NotificationColor":"3a3b50"}'},
+}
 
 function ThemeManager.ApplyTheme(self,theme)
 local data=self.BuiltInThemes[theme]
@@ -2388,7 +2388,7 @@ do
 Library.NotificationArea=Library:Create('Frame',{BackgroundTransparency=1,Position=UDim2.new(0,0,0,40),Size=UDim2.new(0,300,0,200),ZIndex=100,Parent=ScreenGui})
 Library:Create('UIListLayout',{Padding=UDim.new(0,4),FillDirection=Enum.FillDirection.Vertical,SortOrder=Enum.SortOrder.LayoutOrder,Parent=Library.NotificationArea})
 
-local WatermarkOuter=Library:Create('Frame',{BorderColor3=Color3.new(0,0,0),Position=UDim2.new(0,50,0,0),Size=UDim2.new(0,213,0,20),ZIndex=200,Visible=false,Parent=ScreenGui})
+local WatermarkOuter=Library:Create('Frame',{BorderColor3=Color3.new(0,0,0),Position=UDim2.new(0,20,0,10),Size=UDim2.new(0,213,0,20),ZIndex=200,Visible=false,Parent=ScreenGui})
 
 local WatermarkShadow=Instance.new'UIShadow'
 WatermarkShadow.BlurRadius=UDim.new(0,5)
@@ -2428,8 +2428,9 @@ local KeybindOuter=Library:Create('Frame',{
 AnchorPoint=Vector2.new(0,0.5);
 BackgroundColor3=Color3.new(0,0,0);
 BorderColor3=Color3.new(0,0,0);
+AutomaticSize=Enum.AutomaticSize.Y;
 Position=UDim2.new(0,10,0.8,0);
-Size=UDim2.new(0,210,0,20);
+Size=UDim2.new(0,250,0,30);
 Visible=false;
 ZIndex=100;
 Parent=ScreenGui
@@ -2439,6 +2440,7 @@ local KeybindInner=Library:Create('Frame',{
 BackgroundColor3=Library.MainColor;
 BorderColor3=Library.OutlineColor;
 BorderMode=Enum.BorderMode.Inset;
+AutomaticSize=Enum.AutomaticSize.Y;
 Size=UDim2.new(1,0,1,0);
 ZIndex=101;
 Parent=KeybindOuter
