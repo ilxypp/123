@@ -2437,6 +2437,12 @@ ZIndex=100;
 Parent=ScreenGui
 })
 
+local KeybindShadow=Instance.new'UIShadow'
+KeybindShadow.BlurRadius=UDim.new(0,5)
+KeybindShadow.Color=Color3.new(0,0,0)
+KeybindShadow.Transparency=0.5
+KeybindShadow.Parent=KeybindOuter
+
 local KeybindInner=Library:Create('Frame',{
 BackgroundColor3=Library.MainColor;
 BorderColor3=Library.OutlineColor;
