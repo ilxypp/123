@@ -2407,7 +2407,7 @@ Library.Watermark=WatermarkOuter
 Library.WatermarkText=WatermarkLabel
 Library:MakeDraggable(Library.Watermark)
 
-local KeybindOuter=Library:Create('Frame',{AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,Position=UDim2.new(0,10,0.5,0),AutomaticSize=Enum.AutomaticSize.XY,Size=UDim2.new(0,0,0,0),Visible=false,ZIndex=100,Parent=ScreenGui})
+local KeybindOuter=Library:Create('Frame',{AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,Position = UDim2.new(0, 10, 0.8, 0),AutomaticSize=Enum.AutomaticSize.XY,Size = UDim2.new(1, 0, 1, 0),Visible=false,ZIndex=100,Parent=ScreenGui})
 local KeybindInner=Library:Create('Frame',{BackgroundColor3=Library.MainColor,BorderColor3=Library.OutlineColor,BorderMode=Enum.BorderMode.Inset,AutomaticSize=Enum.AutomaticSize.XY,Size=UDim2.new(0,0,0,0),ZIndex=101,Parent=KeybindOuter})
 
 Library:Create('UIPadding',{PaddingTop=UDim.new(0,2),PaddingBottom=UDim.new(0,6),PaddingLeft=UDim.new(0,5),PaddingRight=UDim.new(0,5),Parent=KeybindInner})
