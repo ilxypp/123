@@ -1184,15 +1184,12 @@ Parent=ModeSelectInner
 
 local ContainerLabel=Library:CreateLabel({
 TextXAlignment=Enum.TextXAlignment.Left,
-Size=UDim2.new(0,0,0,18),
+Size=UDim2.new(1,0,0,18),
 TextSize=13,
 Visible=false,
 ZIndex=110,
 Parent=Library.KeybindContainer
 },true)
-
-
-ContainerLabel.AutomaticSize=Enum.AutomaticSize.X
 
 local Modes=Info.Modes or{'Always','Toggle','Hold'}
 local ModeButtons={}
@@ -2371,7 +2368,7 @@ do
 Library.NotificationArea=Library:Create('Frame',{BackgroundTransparency=1,Position=UDim2.new(0,0,0,40),Size=UDim2.new(0,300,0,200),ZIndex=100,Parent=ScreenGui})
 Library:Create('UIListLayout',{Padding=UDim.new(0,4),FillDirection=Enum.FillDirection.Vertical,SortOrder=Enum.SortOrder.LayoutOrder,Parent=Library.NotificationArea})
 
-local WatermarkOuter=Library:Create('Frame',{BorderColor3=Color3.new(0,0,0),Position=UDim2.new(0,100,0,0),Size=UDim2.new(0,213,0,20),ZIndex=200,Visible=false,Parent=ScreenGui})
+local WatermarkOuter=Library:Create('Frame',{BorderColor3=Color3.new(0,0,0),Position=UDim2.new(0,50,0,0),Size=UDim2.new(0,213,0,20),ZIndex=200,Visible=false,Parent=ScreenGui})
 
 local WatermarkShadow=Instance.new'UIShadow'
 WatermarkShadow.BlurRadius=UDim.new(0,5)
@@ -2407,25 +2404,69 @@ Library.Watermark=WatermarkOuter
 Library.WatermarkText=WatermarkLabel
 Library:MakeDraggable(Library.Watermark)
 
-local KeybindOuter=Library:Create('Frame',{AnchorPoint=Vector2.new(0,0.5),BackgroundTransparency=1,Position = UDim2.new(0, 10, 0.8, 0),AutomaticSize=Enum.AutomaticSize.XY,Size = UDim2.new(1, 0, 1, 0),Visible=false,ZIndex=100,Parent=ScreenGui})
-local KeybindInner=Library:Create('Frame',{BackgroundColor3=Library.MainColor,BorderColor3=Library.OutlineColor,BorderMode=Enum.BorderMode.Inset,AutomaticSize=Enum.AutomaticSize.XY,Size=UDim2.new(0,0,0,0),ZIndex=101,Parent=KeybindOuter})
+    local KeybindOuter=Library:Create('Frame',{
+        AnchorPoint=Vector2.new(0,0.5);
+        BackgroundColor3=Color3.new(0,0,0);
+        BorderColor3=Color3.new(0,0,0);
+        Position=UDim2.new(0,10,0.8,0); -- 80% down the screen
+        Size=UDim2.new(0,210,0,20); -- Fixed size, math will resize it
+        Visible=false;
+        ZIndex=100;
+        Parent=ScreenGui
+    })
 
-Library:Create('UIPadding',{PaddingTop=UDim.new(0,2),PaddingBottom=UDim.new(0,6),PaddingLeft=UDim.new(0,5),PaddingRight=UDim.new(0,5),Parent=KeybindInner})
-Library:Create('UIListLayout',{Padding=UDim.new(0,4),FillDirection=Enum.FillDirection.Vertical,SortOrder=Enum.SortOrder.LayoutOrder,Parent=KeybindInner})
+    local KeybindInner=Library:Create('Frame',{
+        BackgroundColor3=Library.MainColor;
+        BorderColor3=Library.OutlineColor;
+        BorderMode=Enum.BorderMode.Inset;
+        Size=UDim2.new(1,0,1,0);
+        ZIndex=101;
+        Parent=KeybindOuter
+    })
 
-Library:AddToRegistry(KeybindInner,{BackgroundColor3='MainColor',BorderColor3='OutlineColor'},true)
-local ColorFrame=Library:Create('Frame',{BackgroundColor3=Library.AccentColor,BorderSizePixel=0,Size=UDim2.new(1,0,0,2),ZIndex=102,Parent=KeybindInner})
-Library:AddToRegistry(ColorFrame,{BackgroundColor3='AccentColor'},true)
+    Library:AddToRegistry(KeybindInner,{BackgroundColor3='MainColor',BorderColor3='OutlineColor'},true)
 
-local KeybindLabel=Library:CreateLabel{Size=UDim2.new(0,0,0,20),TextXAlignment=Enum.TextXAlignment.Left,Text='Keybinds',ZIndex=104,Parent=KeybindInner}
-KeybindLabel.AutomaticSize=Enum.AutomaticSize.X
+    local ColorFrame=Library:Create('Frame',{
+        BackgroundColor3=Library.AccentColor;
+        BorderSizePixel=0;
+        Size=UDim2.new(1,0,0,2);
+        ZIndex=102;
+        Parent=KeybindInner
+    })
 
-local KeybindContainer=Library:Create('Frame',{BackgroundTransparency=1,AutomaticSize=Enum.AutomaticSize.XY,Size=UDim2.new(0,0,0,0),ZIndex=1,Parent=KeybindInner})
-Library:Create('UIListLayout',{FillDirection=Enum.FillDirection.Vertical,SortOrder=Enum.SortOrder.LayoutOrder,Parent=KeybindContainer})
+    Library:AddToRegistry(ColorFrame,{BackgroundColor3='AccentColor'},true)
 
-Library.KeybindFrame=KeybindOuter
-Library.KeybindContainer=KeybindContainer
-Library:MakeDraggable(KeybindOuter)
+    local KeybindLabel=Library:CreateLabel({
+        Size=UDim2.new(1,0,0,20);
+        Position=UDim2.fromOffset(5,2);
+        TextXAlignment=Enum.TextXAlignment.Left;
+        Text='Keybinds';
+        ZIndex=104;
+        Parent=KeybindInner
+    })
+
+    local KeybindContainer=Library:Create('Frame',{
+        BackgroundTransparency=1;
+        Size=UDim2.new(1,0,1,-20);
+        Position=UDim2.new(0,0,0,20);
+        ZIndex=1;
+        Parent=KeybindInner
+    })
+
+    Library:Create('UIListLayout',{
+        FillDirection=Enum.FillDirection.Vertical;
+        SortOrder=Enum.SortOrder.LayoutOrder;
+        Parent=KeybindContainer
+    })
+
+    Library:Create('UIPadding',{
+        PaddingLeft=UDim.new(0,5);
+        Parent=KeybindContainer
+    })
+
+    Library.KeybindFrame=KeybindOuter
+    Library.KeybindContainer=KeybindContainer
+    Library:MakeDraggable(KeybindOuter)
 end
 
 function Library.SetWatermarkVisibility(self,Bool)Library.Watermark.Visible=Bool end
